@@ -64,7 +64,7 @@ class Translator {
         translatedText.push(textArray[i]);
       } else {
         translatedText.push(
-          "<span class = 'highlight'> " + translatedWord + "</span>"
+          '<span class="highlight">' + translatedWord + "</span>"
         );
       }
     }
@@ -74,7 +74,7 @@ class Translator {
     let regex = /([0-2][0-9]):([0-5][0-9])/g;
     translatedText = translatedText.replace(
       regex,
-      '<span class = "highlight">$1.$2</span>'
+      '<span class="highlight">$1.$2</span>'
     );
 
     return translatedText;
