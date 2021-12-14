@@ -6,78 +6,102 @@ const britishOnly = require("./british-only.js");
 
 class Translator {
   britishToAmerican(text) {
-    let translatedText = [];
-
-    let textArray = text.split(" ");
-
-    for (let i = 0; i < textArray.length; i++) {
-      let translatedWord = Object.keys(americanToBritishSpelling).find(
-        (key) => americanToBritishSpelling[key] === textArray[i]
-      );
-
-      if (translatedWord === undefined) {
-        translatedWord = Object.keys(americanToBritishTitles).find(
-          (key) => americanToBritishTitles[key] === textArray[i]
-        );
-        if (translatedWord === undefined) {
-          translatedWord = britishOnly[textArray[i]];
-        }
-      }
-
-      if (translatedWord === undefined) {
-        translatedText.push(textArray[i]);
-      } else {
-        translatedText.push(
-          "<span class = 'highlight'> " + translatedWord + "</span>"
-        );
-      }
-    }
-
-    translatedText = translatedText.join(" ");
-
-    let regex = /([0-2][0-9])\.([0-5][0-9])/g;
-    translatedText = translatedText.replace(
-      regex,
-      '<span class = "highlight">$1:$2</span>'
+    let lowerCasedText = text.toLowerCase();
+    let americanToBritishSpellingValues = Object.values(
+      americanToBritishSpelling
     );
+    for (let i = 0; i < americanToBritishSpellingValues.length; i++) {
+      if (text.indexOf(americanToBritishSpellingValues[i]) !== -1) {
+        //find looks through all the keys till it finds the one with the value we are looking for, then it returns it´s key.
+        let translatedWord = Object.keys(americanToBritishSpelling).find(
+          (key) =>
+            americanToBritishSpelling[key] ===
+            americanToBritishSpellingValues[i]
+        );
 
-    return translatedText;
-  }
-
-  americanToBritish(text) {
-    let translatedText = [];
-
-    let textArray = text.split(" ");
-
-    for (let i = 0; i < textArray.length; i++) {
-      let translatedWord = americanOnly[textArray[i]];
-
-      if (translatedWord === undefined) {
-        translatedWord = americanToBritishSpelling[textArray[i]];
-
-        if (translatedWord === undefined) {
-          translatedWord = americanToBritishTitles[textArray[i]];
-        }
-      }
-
-      if (translatedWord === undefined) {
-        translatedText.push(textArray[i]);
-      } else {
-        translatedText.push(
+        text = text.replace(
+          new RegExp(americanToBritishSpellingValues[i], "g"),
           '<span class="highlight">' + translatedWord + "</span>"
         );
       }
     }
 
-    translatedText = translatedText.join(" ");
+    let americanToBritishTitlesValues = Object.values(americanToBritishTitles);
+    for (let i = 0; i < americanToBritishTitlesValues.length; i++) {
+      if (text.indexOf(americanToBritishTitlesValues[i]) !== 1) {
+        let translatedWord = Object.keys(americanToBritishTitles).find(
+          (key) =>
+            americanToBritishTitles[key] === americanToBritishTitlesValues[i]
+        );
 
-    let regex = /([0-2][0-9]):([0-5][0-9])/g;
-    translatedText = translatedText.replace(
-      regex,
-      '<span class="highlight">$1.$2</span>'
-    );
+        text = text.replace(
+          new RegExp(americanToBritishTitlesValues[i], "g"),
+          '<span class="highlight">' + translatedWord + "</span>"
+        );
+      }
+    }
 
-    return translatedText;
+    let britishOnlyKeys = Object.keys(britishOnly);
+    for (let i = 0; i < britishOnlyKeys.length; i++) {
+      if (lowerCasedText.indexOf(britishOnlyKeys[i]) !== -1) {
+        text = text.replace(
+          new RegExp(britishOnlyKeys[i], "gi"),
+          '<span class="highlight">' +
+            britishOnly[britishOnlyKeys[i]] +
+            "</span>"
+        );
+      }
+    }
+
+    let regex = /([0-2]?[0-9])\.([0-5][0-9])/g;
+    text = text.replace(regex, '<span class = "highlight">$1:$2</span>');
+
+    return text;
+  }
+
+  americanToBritish(text) {
+    let lowerCasedText = text.toLowerCase();
+    let americanOnlyKeys = Object.keys(americanOnly);
+    for (let i = 0; i < americanOnlyKeys.length; i++) {
+      if (lowerCasedText.indexOf(americanOnlyKeys[i]) !== -1) {
+        text = text.replace(
+          new RegExp(americanOnlyKeys[i], "gi"),
+          '<span class="highlight">' +
+            americanOnly[americanOnlyKeys[i]] +
+            "</span>"
+        );
+      }
+    }
+
+    let americanToBritishSpellingKeys = Object.keys(americanToBritishSpelling);
+    for (let i = 0; i < americanToBritishSpellingKeys.length; i++) {
+      if (lowerCasedText.indexOf(americanToBritishSpellingKeys[i]) !== -1) {
+        text = text.replace(
+          new RegExp(americanToBritishSpellingKeys[i], "gi"),
+          '<span class="highlight">' +
+            americanToBritishSpelling[americanToBritishSpellingKeys[i]] +
+            "</span>"
+        );
+      }
+    }
+
+    let americanToBritishTitlesKeys = Object.keys(americanToBritishTitles);
+
+    for (let i = 0; i < americanToBritishTitlesKeys.length; i++) {
+      if (lowerCasedText.indexOf(americanToBritishTitlesKeys[i]) !== -1) {
+        text = text.replace(
+          new RegExp(americanToBritishTitlesKeys[i], "gi"),
+          '<span class="highlight">' +
+            americanToBritishTitles[americanToBritishTitlesKeys[i]] +
+            "</span>"
+        );
+      }
+    }
+
+    let regex = /([0-2]?[0-9]):([0-5][0-9])/g;
+    text = text.replace(regex, '<span class="highlight">$1.$2</span>');
+
+    return text;
   }
 
   validateFields(textField, localeField) {
