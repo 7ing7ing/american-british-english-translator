@@ -79,7 +79,7 @@ suite("Unit Tests", () => {
     const text = "No Mr. Bond, I expect you to die.";
     const translatedText = translator.americanToBritish(text);
     const translatedTextExpected =
-      'No <span class="highlight">mr</span> Bond, I expect you to die.';
+      'No <span class="highlight">Mr</span> Bond, I expect you to die.';
 
     assert.equal(translatedText, translatedTextExpected);
     done();
@@ -89,7 +89,7 @@ suite("Unit Tests", () => {
     const text = "Dr. Grosh will see you now.";
     const translatedText = translator.americanToBritish(text);
     const translatedTextExpected =
-      '<span class="highlight">dr</span> Grosh will see you now.';
+      '<span class="highlight">Dr</span> Grosh will see you now.';
 
     assert.equal(translatedText, translatedTextExpected);
     done();

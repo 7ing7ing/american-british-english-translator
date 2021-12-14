@@ -88,9 +88,9 @@ class Translator {
     let americanToBritishTitlesKeys = Object.keys(americanToBritishTitles);
 
     for (let i = 0; i < americanToBritishTitlesKeys.length; i++) {
-      if (lowerCasedText.indexOf(americanToBritishTitlesKeys[i]) !== -1) {
+      if (text.indexOf(americanToBritishTitlesKeys[i]) !== -1) {
         text = text.replace(
-          new RegExp(americanToBritishTitlesKeys[i], "gi"),
+          new RegExp(americanToBritishTitlesKeys[i], "g"),
           '<span class="highlight">' +
             americanToBritishTitles[americanToBritishTitlesKeys[i]] +
             "</span>"
