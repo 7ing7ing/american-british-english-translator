@@ -6,7 +6,7 @@ An american-british translator that returns the translated words highlighted. It
 
 :wrench:Technologies used:
 
-- Javscript
+- Javascript
 - Node.js
 - API's
 - Mocha, Chai
