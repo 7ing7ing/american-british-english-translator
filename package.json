@@ -2,9 +2,9 @@
   "name": "american-british-english-translator",
   "version": "2.0.0",
   "description": "Quality Assurance 5: American / British English Translator",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "node api/index.js",
     "test": "mocha --timeout 5000 --require @babel/register --recursive --exit --ui tdd tests/"
   },
   "dependencies": {

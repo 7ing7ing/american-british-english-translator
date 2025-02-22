@@ -13,4 +13,4 @@ An american-british translator that returns the translated words highlighted. It
 
 :link:Link:
 
-- https://american-british-english-translator.onrender.com
+- https://american-british-english-translator.vercel.app/
